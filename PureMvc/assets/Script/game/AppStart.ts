@@ -6,6 +6,8 @@
 // import { JSEncrypt } from "../libs/src/JSEncrypt";
 // import { JSEncrypt } from "../libs/src/JSEncrypt";
 import { JSEncrypt } from "../libs/src/JSEncrypt";
+import Test from "../test/Test";
+import test from "../test/Test";
 import AppFacade from "./AppFacade";
 // const NodeRSA = require('node-rsa');
 
@@ -33,11 +35,11 @@ export default class AppStart extends cc.Component {
 
     }
 
-    onClick() {
-        cc.resources.load("Prefabs/Entry", cc.Prefab, (error, asserts) => {
-            let node: any = cc.instantiate(asserts);
-            this.popLayer.addChild(node);
-        })
+    async onClick() {
+        // cc.resources.load("Prefabs/Entry", cc.Prefab, (error, asserts) => {
+        //     let node: any = cc.instantiate(asserts);
+        //     this.popLayer.addChild(node);
+        // })
 
         // let PUBLIC_KEY = `-----BEGIN RSA PUBLIC KEY----- 
         // MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCxdgoZOYfNp3LFNdvUfOjSfHhL
@@ -85,9 +87,9 @@ export default class AppStart extends cc.Component {
 
         // for (const key in obj) {
         //     if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                
+
         //         const element = obj[key];
-                
+
         //     }
         // }
         // console.log(obj.toString());
@@ -98,9 +100,54 @@ export default class AppStart extends cc.Component {
         //     "123":1,
         //     "456":2
         // }
-        
+
         // xhr.send(obj1);
 
+        // let test = new Test();
+
+        // let name = test.name();
+        // name.then(console.log);
+
+        // await test.tarce1()
+        // await test.tarce2();
+        // await test.tarce3();
+        // await test.tarce4();
+
+        // await test.tarce2();
+        // await test.tarce3();
+        // await test.tarce4();
+
+        // for (let i = 0; i < 1000; i++) {
+        //     var data = new FormData();
+
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.withCredentials = true;
+
+        //     xhr.addEventListener("readystatechange", function () {
+        //         if (this.readyState === 4) {
+        //             console.log(this.responseText);
+        //         }
+        //     });
+
+        //     xhr.open("GET", "http://tg.n9963.com/frontend/v1//captcha?encryptedBody=8wHNYOm7ZjEUnmTYgxTlHpATrtrEcywEA4tttKgtyGdXGpwvp53wnbq%252FZ5hQ2I3g");
+        //     xhr.setRequestHeader("request-id", "A5c4N9onHaVzmlCCxj5tQ3zk7go9cS10tq7TUqzQyhc0gneoiZEK5az0Hyq5z3SgPiuvoJqhwQ2RvnfDMkLqxxbphz5XKG8Ph4qEugNYtJGdTGF5w+erbj1wObWLZlSaGpRwT69WBButsLflp2S7fVsHQFQygUgYUjQUgCDEEB8=");
+        //     xhr.setRequestHeader("encryptResponse", "1");
+        //     xhr.setRequestHeader("timestamp", "1624851334");
+
+        //     xhr.send(data);
+        // }
+
+
+        // let xhr = cc.loader.getXMLHttpRequest();
+        // xhr.timeout = timeout;
+        // xhr.ontimeout = this._onTimeOut.bind(this, url, dataObj, reConCount, callback, tokenStr, "get", "timeout");
+        // xhr.onerror = this._onTimeOut.bind(this, url, dataObj, reConCount, callback, tokenStr, "get", "error");
+        // xhr.onreadystatechange = this._onreadystatechange.bind(this, xhr, requestURL, callback);
+        // xhr.open("GET", requestURL, true);
+
+        http://beiyong.u0031.com/
+
+        
     }
 
 }
