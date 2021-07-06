@@ -9,6 +9,7 @@ import { JSEncrypt } from "../libs/src/JSEncrypt";
 import Test from "../test/Test";
 import test from "../test/Test";
 import AppFacade from "./AppFacade";
+import encryptUtils from "./utils/encryptUtils";
 // const NodeRSA = require('node-rsa');
 
 
@@ -35,11 +36,11 @@ export default class AppStart extends cc.Component {
 
     }
 
-    async onClick() {
-        // cc.resources.load("Prefabs/Entry", cc.Prefab, (error, asserts) => {
-        //     let node: any = cc.instantiate(asserts);
-        //     this.popLayer.addChild(node);
-        // })
+    onClick() {
+        cc.resources.load("Prefabs/Entry", cc.Prefab, (error, asserts) => {
+            let node: any = cc.instantiate(asserts);
+            this.popLayer.addChild(node);
+        })
 
         // let PUBLIC_KEY = `-----BEGIN RSA PUBLIC KEY----- 
         // MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCxdgoZOYfNp3LFNdvUfOjSfHhL
@@ -145,9 +146,46 @@ export default class AppStart extends cc.Component {
         // xhr.onreadystatechange = this._onreadystatechange.bind(this, xhr, requestURL, callback);
         // xhr.open("GET", requestURL, true);
 
-        http://beiyong.u0031.com/
+        // http://beiyong.u0031.com/
 
-        
+
+
+        // let aeskey =  "QeSEKSwYLXqYNLGs";//encryptUtils.careate_aes128_16_key();
+        // let obj = "{'id':0}1624875103";
+        // let data =  encryptUtils.get_aes_encrypedBody(obj);
+        // console.log("加密结果" + data);
+
+        // let data1 = encryptUtils.get_decryptBody(aeskey,data);
+        // console.log("解密结果:" + data1);
+
+        // let url = ["1", "2", "3", "4"];
+
+        // for (let i = 0; i < 4; i++) {
+        //     let curUrl = url[i];
+        //     console.log("同步:curUrl:" + curUrl);
+        //     this.laterFun(i).then((result) => {
+        //         console.log("result:" + result);
+        //         console.log("curUrl:" + curUrl);
+        //         console.log("i:" + i);
+        //     })
+        // }
+
+        // let xhr = new XMLHttpRequest();
+        // // console.log(xhr.readyState);
+        // xhr.open('GET', 'https://12345671111111111111111189.com/');
+        // // console.log(xhr.readyState);
+        // xhr.onreadystatechange = () => { 
+        //     console.log(xhr.readyState);
+        // };
+        // xhr.send();
+    }
+
+    async laterFun(index) {
+        return new Promise((resolve, jectact) => {
+            setTimeout(() => {
+                resolve("123");
+            }, 2000 * index + 1);
+        })
     }
 
 }
