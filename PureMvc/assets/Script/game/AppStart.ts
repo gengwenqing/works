@@ -5,7 +5,6 @@
  */
 // import { JSEncrypt } from "../libs/src/JSEncrypt";
 // import { JSEncrypt } from "../libs/src/JSEncrypt";
-import { JSEncrypt } from "../libs/src/JSEncrypt";
 import Test from "../test/Test";
 import test from "../test/Test";
 import AppFacade from "./AppFacade";
