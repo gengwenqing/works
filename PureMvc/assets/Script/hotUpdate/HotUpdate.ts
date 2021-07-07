@@ -1,18 +1,16 @@
 /**
- * 热更新模块
+ * 热更新
  * @author dk
- * 
- * // 1 生成本地 mainfest文件
- * // 2 上传远端 mainfest文件
- * // 3 对比版本 
- * // 4 产生临时缓存文件夹
- * 
- * 2021-07-06
+ * 2021/07/06
  */
+export default class HotUpdate{
+    private am:cc.AssetManager;
 
-const { ccclass } = cc._decorator;
-
-@ccclass
-export default class HotUpdate extends cc.Component {
-    
+    /**
+     * 初始化函数,
+     * 1) 创建localMainfest文件;
+     */
+    init(){
+        this.am = new cc.AssetManager();
+    }
 }
