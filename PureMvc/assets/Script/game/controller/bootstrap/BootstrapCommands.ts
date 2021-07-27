@@ -9,6 +9,7 @@ import INotification from "../../../frame/pureMvc/interfaces/INotification";
 import SimpleCommand from "../../../frame/pureMvc/patterns/command/SimpleCommand";
 import AppFacade from "../../AppFacade";
 import EntryCommand from "../commands/EntryCommand";
+import HotUpdateCommand from "../commands/HotUpdateCommand";
 
 export default class BootstrapCommands extends SimpleCommand implements ICommand {
 
@@ -17,7 +18,11 @@ export default class BootstrapCommands extends SimpleCommand implements ICommand
     }
 
     public execute(notification: INotification): void {
-        let command = new EntryCommand();
+        this.addComd(new EntryCommand());
+        this.addComd(new HotUpdateCommand()); 
+    }
+
+    private addComd(command:SimpleCommand){
         command.initializeNotifier(AppFacade.MVC_KEY);
         command.register();
     }

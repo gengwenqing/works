@@ -4,8 +4,8 @@
  * 2020-06-20
  */
 
-import AppFacade from "../../AppFacade";
-import NotifDefEntry from "../../notifiDef/NotifDefEntry";
+import AppFacade from "../../../AppFacade";
+import NotifDefEntry from "../../../notifiDef/NotifDefEntry";
 import EntryMediator from "../mediators/EntryMediator";
 
 const { ccclass, property } = cc._decorator;

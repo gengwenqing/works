@@ -177,6 +177,13 @@ export default class AppStart extends cc.Component {
         //     console.log(xhr.readyState);
         // };
         // xhr.send();
+
+        let a = ["path0","path1"];
+        let b = ["path2","path3"];
+        
+        Array.prototype.unshift.apply(a,b);
+        
+        console.log("拼接后的数组" + a);
     }
 
     async laterFun(index) {
