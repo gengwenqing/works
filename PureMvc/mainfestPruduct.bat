@@ -1,1 +1,3 @@
-node version_generator.js -v 1.0.0  -u https://101.32.249.234/hotupdate/ -s build/jsb-link/ -d hotupdate/
+::node version_generator.js -v 1.0.1  -u http://101.32.249.234/hotupdate/ -s build/jsb-link/ -d assets/Resources/hotUpdate
+
+node version_generator.js -v 1.0.1  -u http://101.32.249.234/hotupdate/ -s build/jsb-link/ -d hotUpdate

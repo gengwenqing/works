@@ -1,7 +1,7 @@
-import INotification from "../../../frame/pureMvc/interfaces/INotification";
-import Mediator from "../../../frame/pureMvc/patterns/mediator/Mediator";
-import NotifDefEntry from "../../notifiDef/NotifDefEntry";
-import Entry from "../components/Entry";
+import INotification from "../../../../frame/pureMvc/interfaces/INotification";
+import Mediator from "../../../../frame/pureMvc/patterns/mediator/Mediator";
+import NotifDefEntry from "../../../notifiDef/NotifDefEntry";
+import Entry from "../component/Entry";
 
 /**
  * 入口中介
@@ -40,12 +40,12 @@ export default class EntryMediator extends Mediator {
 
     /**注册的时候被调用 */
     public onRegister() {
-        console.log("############### MVC" + "中介类被注册");
+        console.log(EntryMediator.NAME + "中介类被注册");
     }
 
     /**删除的时候被调用 */
     public onRemove() {
-        console.log("############### MVC" + "中介类被删除");
+        console.log(EntryMediator.NAME + "中介类被删除");
     }
 
 

@@ -16,4 +16,13 @@ export default class NotifDefEntry {
 
     /**热更新进度 视图通知 */
     public static UPDATE_PROGRESS_VIEW: string = "updateProgressView";
+
+    /**检测热更 */
+    public static CHECK_HOTUPDATE: string = "check_hotupdate";
+
+    /**开始热更 */
+    public static START_HOTUPDATE: string = "start_hotUpdate";
+
+    /**打开大厅 */
+    public static OPEN_LOBBY: string = "open_lobby";
 }

@@ -10,7 +10,6 @@ export default class StartupCommand extends MacroCommand {
 
 
     public initializeMacroCommand():void{
-        console.log("############### MVC" + "响应多命令");
         super.initializeMacroCommand();
         this.addSubCommand(BootstrapCommands);
         this.addSubCommand(BootstrapModels);

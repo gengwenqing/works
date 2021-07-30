@@ -40,7 +40,6 @@ export default class AppFacade extends Facade implements IFacade {
     public startUp() {
         this.sendNotification(AppFacade.STARTUP);
         this.removeCommand(AppFacade.STARTUP);
-        console.log("############### MVC" + "注册启动命令");
     }
 
     /** 复写 父类函数 */

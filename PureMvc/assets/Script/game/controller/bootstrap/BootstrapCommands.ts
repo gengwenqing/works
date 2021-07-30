@@ -10,6 +10,7 @@ import SimpleCommand from "../../../frame/pureMvc/patterns/command/SimpleCommand
 import AppFacade from "../../AppFacade";
 import EntryCommand from "../commands/EntryCommand";
 import HotUpdateCommand from "../commands/HotUpdateCommand";
+import LobbyCommand from "../commands/LobbyCommand";
 
 export default class BootstrapCommands extends SimpleCommand implements ICommand {
 
@@ -20,6 +21,7 @@ export default class BootstrapCommands extends SimpleCommand implements ICommand
     public execute(notification: INotification): void {
         this.addComd(new EntryCommand());
         this.addComd(new HotUpdateCommand()); 
+        this.addComd(new LobbyCommand())
     }
 
     private addComd(command:SimpleCommand){

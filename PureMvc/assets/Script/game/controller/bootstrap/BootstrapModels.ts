@@ -17,7 +17,6 @@ export default class BootstrapModels extends SimpleCommand implements ICommand {
 
     public execute(notification: INotification): void {
 
-        console.log("############### MVC" + "注册 数据代理");
         this.facade().registerProxy(new GameProxy());
         // this.facade.registerProxy(new WebSocketProxy());
     }

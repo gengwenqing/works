@@ -29,14 +29,26 @@ export default class Entry extends cc.Component {
         this.btn.on("click", () => {
             AppFacade.getInstance().sendNotification(NotifDefEntry.CLICK_BTN, "test");
         }, this)
+
+        console.log("onLoad 被调用");
+    }
+
+    onEnable(){
+        console.log("enable 被调用");
+    }
+
+    onDisable(){
+        console.log("disable 被调用");
     }
 
     start() {
+        console.log("start 被调用");
         AppFacade.getInstance().registerMediator(new EntryMediator(this));
         this.eMoney.node.on("text-changed", this.textChanged.bind(this))
     }
 
     onDestroy() {
+        console.log("onDestroy 被调用");
         AppFacade.getInstance().removeMediator(EntryMediator.NAME);
     }
 
@@ -53,7 +65,7 @@ export default class Entry extends cc.Component {
 
     onClose() {
         this.node.parent.removeChild(this.node);
-        this.node.destroy();
+        // this.node.destroy();
     }
 
 }

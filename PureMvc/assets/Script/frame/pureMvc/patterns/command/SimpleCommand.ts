@@ -21,4 +21,7 @@ export default class SimpleCommand extends Notifier implements ICommand, INotifi
      */
     execute(notification: INotification): void {
     }
+
+    register(): void {
+    }
 }
