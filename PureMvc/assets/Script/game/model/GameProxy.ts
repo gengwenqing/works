@@ -6,7 +6,7 @@ import UserInfo from "./vo/UserInfo";
  * 创建游戏 数据代理类
  * @author dk
  * 2021-06-20
- * testt
+ * testtsssssssssssss
  */
 export default class GameProxy extends Proxy implements IProxy {
     public static NAME: string = "GameProxy";
