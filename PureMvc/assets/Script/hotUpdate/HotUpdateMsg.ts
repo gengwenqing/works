@@ -41,11 +41,11 @@ export default class HotUpdateMsg {
                 let self = this;
                 let versionCompareHandle = function (versionA: string, versionB: string) {
                     self.showLog("进入对比函数")
-                    var vA = versionA.split('.');
-                    var vB = versionB.split('.');
-                    for (var i = 0; i < vA.length; ++i) {
-                        var a = parseInt(vA[i]);
-                        var b = parseInt(vB[i] || '0');
+                    let vA = versionA.split('.');
+                    let vB = versionB.split('.');
+                    for (let i = 0; i < vA.length; ++i) {
+                        let a = parseInt(vA[i]);
+                        let b = parseInt(vB[i] || '0');
                         if (a === b) {
                             continue;
                         } else {
