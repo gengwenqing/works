@@ -12,7 +12,8 @@ import NotifDefEntry from "../../notifiDef/NotifDefEntry";
 import UIManager from "../../utils/UIManager";
 import HotUpdateMediator from "../../view/hotUpdate/mediator/HotUpdateMediator";
 
-export default class HotUpdateCommand extends SimpleCommand implements ICommand {
+export default class HotUpdateCommand extends SimpleCommand
+ {
 
 
     private hotUpdateMsg: HotUpdateMsg; // 热更新管理器
@@ -20,7 +21,7 @@ export default class HotUpdateCommand extends SimpleCommand implements ICommand 
     public register(): void {
         this.facade().registerCommand(NotifDefEntry.UPDATE_PROGRESS, HotUpdateCommand);
         this.facade().registerCommand(NotifDefEntry.CHECK_HOTUPDATE, HotUpdateCommand); //检测热更命令
-        UIManager.getInstance().showUI(HotUpdateMediator.NAME);
+        // UIManager.getInstance().showUI(HotUpdateMediator.NAME);
     }
 
     public execute(notification: INotification): void {
