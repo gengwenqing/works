@@ -11,6 +11,7 @@ import AppFacade from "../../AppFacade";
 import EntryCommand from "../commands/EntryCommand";
 import HotUpdateCommand from "../commands/HotUpdateCommand";
 import LobbyCommand from "../commands/LobbyCommand";
+import SnowGameCommand from "../commands/SnowGameCommand";
 
 export default class BootstrapCommands extends SimpleCommand implements ICommand {
 
@@ -21,7 +22,8 @@ export default class BootstrapCommands extends SimpleCommand implements ICommand
     public execute(notification: INotification): void {
         this.addComd(new EntryCommand());
         this.addComd(new HotUpdateCommand()); 
-        this.addComd(new LobbyCommand())
+        this.addComd(new LobbyCommand());
+        this.addComd(new SnowGameCommand())
     }
 
     private addComd(command:SimpleCommand){

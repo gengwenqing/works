@@ -22,6 +22,7 @@ export default class UIManager {
     private UIKVList = {
         "HotUpdateMediator": "Prefabs/HotUpdate",
         "LobbyMediator": "Prefabs/Lobby",
+        "SnowGame": "Prefabs/SnowGame",
     };
 
     public UIPopLayer: cc.Node = null;

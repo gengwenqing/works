@@ -27,6 +27,7 @@ export default class Entry extends cc.Component {
 
     onLoad() {
         this.btn.on("click", () => {
+            
             AppFacade.getInstance().sendNotification(NotifDefEntry.CLICK_BTN, "test");
         }, this)
 
@@ -60,6 +61,7 @@ export default class Entry extends cc.Component {
         if(e.string.length == 6){
             console.log(".....................")
             e.maxLength = 8;
+
         }
     }
 

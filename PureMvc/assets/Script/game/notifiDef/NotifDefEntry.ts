@@ -25,4 +25,5 @@ export default class NotifDefEntry {
 
     /**打开大厅 */
     public static OPEN_LOBBY: string = "open_lobby";
+    
 }
