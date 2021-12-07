@@ -31,7 +31,7 @@ export default class AppStart extends cc.Component {
 
     private init() {
         /**赋值UIPopLayer */
-        UIManager.getInstance().UIPopLayer = this.popLayer;
+        UIManager.UIPopLayer = this.popLayer;
         /**启动框架命令 */
         AppFacade.getInstance().startUp();
     }

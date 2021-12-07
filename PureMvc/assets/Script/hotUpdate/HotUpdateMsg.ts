@@ -183,7 +183,6 @@ export default class HotUpdateMsg {
             setTimeout(() => {
                 cc.game.restart();
             }, 1000)
-
         }
     }
 

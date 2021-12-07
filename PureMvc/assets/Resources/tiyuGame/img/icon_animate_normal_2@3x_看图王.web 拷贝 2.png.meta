@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "932c08dc-a4b7-45f6-9c08-1e0ff48cc3ea",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 32,
+  "height": 25,
+  "platformSettings": {},
+  "subMetas": {
+    "icon_animate_normal_2@3x_看图王.web 拷贝 2": {
+      "ver": "1.0.4",
+      "uuid": "6589f6ee-99d7-4d96-a014-1cbbbfb4c402",
+      "rawTextureUuid": "932c08dc-a4b7-45f6-9c08-1e0ff48cc3ea",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 32,
+      "height": 25,
+      "rawWidth": 32,
+      "rawHeight": 25,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
