@@ -80,5 +80,13 @@ export default class Grad extends cc.Component {
         this.column = column;
     }
 
+    comparison(grad: Grad) {
+        if (this.row == grad.row && this.column == grad.column) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // update (dt) {}
 }

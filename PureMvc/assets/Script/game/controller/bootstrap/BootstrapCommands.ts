@@ -27,9 +27,9 @@ export default class BootstrapCommands extends SimpleCommand implements ICommand
         // this.addComd(new LobbyCommand());
         // this.addComd(new SnowGameCommand());
 
-        // this.addComd(new LineGameCommand());
+        this.addComd(new LineGameCommand());
 
-        this.addComd(new TiYuGameCommand());
+        // this.addComd(new TiYuGameCommand());
     }
 
     private addComd(command: SimpleCommand) {
