@@ -24,6 +24,7 @@ export class BGMediator extends Mediator {
         return [
             "创建格子",
             "消除方块",
+            "画线特效",
         ];
     }
 
@@ -35,9 +36,9 @@ export class BGMediator extends Mediator {
                 this.createGrad();
                 break;
             case "消除方块":
-                let data = notification.getBody();
-                this.clearGrad(data["curGrad"], data["lastGrad"]);
+                this.clearGrad(data["tryGrads"], data["curGrad"], data["lastGrad"]);
                 break;
+
         }
     }
 
@@ -67,10 +68,13 @@ export class BGMediator extends Mediator {
         // console.log(LobbyMediator.NAME + "中介类被删除");
     }
 
-    private clearGrad(curGard: Grad, lastGrad: Grad): void {
+    private clearGrad(tryGrads: Grad[], curGard: Grad, lastGrad: Grad): void {
+
+        this.drawLine(tryGrads);
+
         let proxy: LineGameProxy = this.facade().retrieveProxy(LineGameProxy.NAME) as LineGameProxy;
         let map = (proxy.getData() as LineGameVo).mapArr;
-        
+
         let type = map[curGard.row][curGard.column];
         for (let i = 0; i < this.gradArr.length; i++) {
             let node = this.gradArr[i] as cc.Node;
@@ -89,5 +93,16 @@ export class BGMediator extends Mediator {
         }
 
         // LineGameVo.lastGrad = null;
+    }
+
+    private drawLine(data: Grad[]) {
+        for (let i = 0; i < data.length; i++) {
+            for(let j =0; j < this.gradArr.length; j ++){
+                let gardCom:Grad = this.gradArr[j].getComponent(Grad);
+                if(gardCom.comparison(data[i])){
+                    gardCom.blink();
+                }
+            }
+        }
     }
 }
