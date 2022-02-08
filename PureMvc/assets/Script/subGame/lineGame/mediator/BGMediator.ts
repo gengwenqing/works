@@ -25,6 +25,7 @@ export class BGMediator extends Mediator {
             "创建格子",
             "消除方块",
             "画线特效",
+            "游戏过关了",
         ];
     }
 
@@ -37,6 +38,10 @@ export class BGMediator extends Mediator {
                 break;
             case "消除方块":
                 this.clearGrad(data["tryGrads"], data["curGrad"], data["lastGrad"]);
+                break;
+            case "游戏过关了":
+                // this.clearGrad(data["tryGrads"], data["curGrad"], data["lastGrad"]);
+                // UIManager.getInstance().showUI()
                 break;
 
         }
@@ -97,9 +102,9 @@ export class BGMediator extends Mediator {
 
     private drawLine(data: Grad[]) {
         for (let i = 0; i < data.length; i++) {
-            for(let j =0; j < this.gradArr.length; j ++){
-                let gardCom:Grad = this.gradArr[j].getComponent(Grad);
-                if(gardCom.comparison(data[i])){
+            for (let j = 0; j < this.gradArr.length; j++) {
+                let gardCom: Grad = this.gradArr[j].getComponent(Grad);
+                if (gardCom.comparison(data[i])) {
                     gardCom.blink();
                 }
             }

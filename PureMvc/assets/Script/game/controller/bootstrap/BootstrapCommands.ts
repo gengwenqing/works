@@ -8,12 +8,9 @@ import ICommand from "../../../frame/pureMvc/interfaces/ICommand";
 import INotification from "../../../frame/pureMvc/interfaces/INotification";
 import SimpleCommand from "../../../frame/pureMvc/patterns/command/SimpleCommand";
 import LineGameCommand from "../../../subGame/lineGame/controller/LineGameCommand";
-import TiYuGameCommand from "../../../subGame/tiYuGame/controller/TiyuCommand";
+import TankGameCommand from "../../../subGame/tankGame/controller/TankGameCommand";
+import TiYuGameCommand from "../../../subGame/tiyuGame/controller/TiyuCommand";
 import AppFacade from "../../AppFacade";
-import EntryCommand from "../commands/EntryCommand";
-import HotUpdateCommand from "../commands/HotUpdateCommand";
-import LobbyCommand from "../commands/LobbyCommand";
-import SnowGameCommand from "../commands/SnowGameCommand";
 
 export default class BootstrapCommands extends SimpleCommand implements ICommand {
 
@@ -27,9 +24,10 @@ export default class BootstrapCommands extends SimpleCommand implements ICommand
         // this.addComd(new LobbyCommand());
         // this.addComd(new SnowGameCommand());
 
-        this.addComd(new LineGameCommand());
+        // this.addComd(new LineGameCommand());
 
-        // this.addComd(new TiYuGameCommand());
+        this.addComd(new TiYuGameCommand());
+        // this.addComd(new TankGameCommand());
     }
 
     private addComd(command: SimpleCommand) {

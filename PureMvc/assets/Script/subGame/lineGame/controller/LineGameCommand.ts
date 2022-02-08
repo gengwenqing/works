@@ -24,6 +24,7 @@ export default class LineGameCommand extends SimpleCommand implements ICommand {
         AppFacade.getInstance().registerCommand("开始连线游戏", LineGameCommand);
         AppFacade.getInstance().registerCommand("运行场景", LineGameCommand);
         AppFacade.getInstance().registerCommand("被点击了", LineGameCommand);
+        AppFacade.getInstance().registerCommand("游戏过关了", LineGameCommand);
 
         this.facade().sendNotification("运行场景");
     }
@@ -49,6 +50,9 @@ export default class LineGameCommand extends SimpleCommand implements ICommand {
             case "被点击了":
                 this.gradClicked(notification.getBody());
                 break;
+            case "游戏过关了":
+                this.openPass();
+                break;
         }
     }
     /**
@@ -68,6 +72,8 @@ export default class LineGameCommand extends SimpleCommand implements ICommand {
         // 创建背景
         let bg = await UIManager.getInstance().createPrefab("Prefabs/lineGamePrefabs/Bg");
         addLay.addChild(bg);
+
+        UIManager.UIPopLayer = addLay;
     }
 
 
@@ -100,6 +106,10 @@ export default class LineGameCommand extends SimpleCommand implements ICommand {
                 // 执行消除逻辑
                 this.sendNotification("消除方块", { tryGrads: this.tryGrads, curGrad: grad, lastGrad: LineGameCommand.lastGrad });
 
+                if (this.isEnd()) {
+                    this.sendNotification("游戏过关了");
+                }
+
                 LineGameCommand.lastGrad = null;
 
             } else {
@@ -108,8 +118,6 @@ export default class LineGameCommand extends SimpleCommand implements ICommand {
             }
         }
     }
-
-
 
     private tryDir(curGrad: Grad, lastGrad, fromDir: DIR): boolean {
         // 尝试优先级方向的查找
@@ -396,7 +404,7 @@ export default class LineGameCommand extends SimpleCommand implements ICommand {
                 }
             }
         }
-    
+
         // 尝试右
         tryDir = 3;
         if (lastDir != DIR.LEFT || fristDir != DIR.RIGHT) {
@@ -449,6 +457,17 @@ export default class LineGameCommand extends SimpleCommand implements ICommand {
         return false;
     }
 
+
+    isEnd(): boolean {
+        let proxy: LineGameProxy = this.facade().retrieveProxy(LineGameProxy.NAME) as LineGameProxy;
+        return proxy.isEnd();
+    }
+
+    private async openPass() {
+        // 创建背景
+        let pass = await UIManager.getInstance().createPrefab("Prefabs/lineGamePrefabs/Pass");
+        UIManager.UIPopLayer.addChild(pass);
+    }
 }
 
 

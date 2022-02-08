@@ -45,4 +45,9 @@ export default class Test {
             },2000)
         })
     }
+
+    public static removeRepeated(array: any[]): any[] {
+        let newArray = [...new Set(array)];
+        return newArray;
+    }
 }

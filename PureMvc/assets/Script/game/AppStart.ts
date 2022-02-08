@@ -5,8 +5,7 @@
  */
 // import { JSEncrypt } from "../libs/src/JSEncrypt";
 // import { JSEncrypt } from "../libs/src/JSEncrypt";
-import Test from "../test/Test";
-import test from "../test/Test";
+import Test from "../test/test";
 import AppFacade from "./AppFacade";
 import encryptUtils from "./utils/encryptUtils";
 import UIManager from "./utils/UIManager";
@@ -34,6 +33,24 @@ export default class AppStart extends cc.Component {
         UIManager.UIPopLayer = this.popLayer;
         /**启动框架命令 */
         AppFacade.getInstance().startUp();
+    }
+
+    start() {
+
+        // let arr = new Set([1, 2, 1, 4, 2]);
+        let arr = [1, 1, 2, 3];
+
+        let map = new Map();
+
+        for (let i = 0; i < arr.length; i++) {
+            let key = arr[i];
+            map.set(key, 1);
+        }
+        map.set(arr[0], 1);
+
+        (map.forEach(element => {
+            console.log(element);
+        }))
     }
 
 

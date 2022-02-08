@@ -76,6 +76,23 @@ export default class LineGameProxy extends Proxy implements IProxy {
         cc.log("数据", map);
     }
 
+    isEnd(): boolean {
+        let isEnd = true;
+        let data = this.getData() as LineGameVo;
+        let map = data.mapArr;
+        // 赋值
+        for (let i = 1; i < 10; i++) {
+            for (let j = 1; j < 5; j++) {
+                let ele = map[i][j];
+                if (ele > 0) {
+                    isEnd = false;
+                    break;
+                }
+            }
+        }
+        return isEnd;
+    }
+
     /**
      * 获取0-max随机数;
      * @param max 
