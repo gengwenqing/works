@@ -38,11 +38,6 @@ export default class TiYuGameCommand extends SimpleCommand implements ICommand {
                 cc.director.loadScene("tiyuGame");
                 break;
             case "详情item被点击":
-
-                console.log("被点击了");
-                let type = (body as ItemInfoCom).getType();
-
-                //获取数据, 根据类型;
                 let data = [];
                 this.facade().sendNotification("打开详情界面", data);
                 break;

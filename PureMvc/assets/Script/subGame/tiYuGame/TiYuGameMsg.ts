@@ -25,7 +25,7 @@ export default class TiYuGameMsg extends cc.Component {
 
 
         Http.getIns().Post("https://loginim.get1origins.com/mobilesitev2/api/home/getSiteProfile",
-            { Token: "YTY4ZDJlNmM0YjZkZGY1ZjllNDVjMzRiYTk2NTQzODcmJmZoX25hbWVnd3F5cSYmJiYxNjQxNTQxMzUx", BrandId: 1 }, (data) => {
+            { Token: "YTY4ZDJlNmM0YjZkZGY1ZjllNDVjMzRiYTk2NTQzODcmJmZoX25hbWVnd3F5cSYmJiYxNjQ0NjYwOTU5", BrandId: 1 }, (data) => {
                 console.log(data);
             })
 

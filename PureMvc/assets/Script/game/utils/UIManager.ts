@@ -78,15 +78,20 @@ export default class UIManager {
      * @returns 
      */
     public createPrefab(url: string): Promise<cc.Node | undefined> {
+        console.log("创建prefab", url);
         return new Promise((resolve, reject) => {
             cc.resources.load(url, cc.Prefab, (error, asserts) => {
                 if (error) {
+                    console.log("创建prefab错误")
+                    console.log(error.name);
+                    console.log(error.message);
                     reject(undefined);
                 } else {
                     let node: any = cc.instantiate(asserts);
                     if (node) {
                         resolve(node);
                     } else {
+                        console.log("创建prefab错误空节点");
                         resolve(undefined);
                     }
 

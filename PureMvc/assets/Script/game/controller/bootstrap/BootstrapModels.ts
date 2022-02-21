@@ -12,6 +12,8 @@ import LineGameProxy from "../../../subGame/lineGame/model/LineGameProxy";
 import { LineGameVo } from "../../../subGame/lineGame/model/vo/LineGameVo";
 import TankGameProxy from "../../../subGame/tankGame/model/TankGameProxy";
 import { TankGameVo } from "../../../subGame/tankGame/model/vo/TankGameVo";
+import TiYuGameProxy from "../../../subGame/tiyuGame/model/TiYuGameProxy";
+import { TiYuGameVo } from "../../../subGame/tiyuGame/model/vo/TiYuGameVo";
 import GameProxy from "../../model/GameProxy";
 
 export default class BootstrapModels extends SimpleCommand implements ICommand {
@@ -21,11 +23,13 @@ export default class BootstrapModels extends SimpleCommand implements ICommand {
 
     public execute(notification: INotification): void {
 
-        this.facade().registerProxy(new GameProxy());
+        // this.facade().registerProxy(new GameProxy());
 
-        this.facade().registerProxy(new LineGameProxy(LineGameProxy.NAME, new LineGameVo()))
+        // this.facade().registerProxy(new LineGameProxy(LineGameProxy.NAME, new LineGameVo()))
 
-        this.facade().registerProxy(new TankGameProxy(TankGameProxy.NAME, new TankGameVo()))
+        // this.facade().registerProxy(new TankGameProxy(TankGameProxy.NAME, new TankGameVo()))
+
+        this.facade().registerProxy(new TiYuGameProxy(TiYuGameProxy.NAME, new TiYuGameVo()))
         // this.facade.registerProxy(new WebSocketProxy());
     }
 }

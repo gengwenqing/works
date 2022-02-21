@@ -7,7 +7,9 @@ import List from "../../../frame/pureMvc/tools/List";
 import AppFacade from "../../../game/AppFacade";
 import UIManager from "../../../game/utils/UIManager";
 import { DetailsMediator } from "../mediator/DetailsMediator";
-import DetailsComItemCom from "./DetailsComItemCom";
+import TiYuGameProxy from "../model/TiYuGameProxy";
+import DetailsItemCom from "./DetailsItemCom";
+import SportTitleMenuCom from "./SportTitleMenuCom";
 
 const { ccclass, property } = cc._decorator;
 
@@ -23,30 +25,14 @@ export default class DetailsCom extends cc.Component {
     @property(List)
     list: List = null;
 
-    static data = [
-        { "isMorn": false },
-        { "isMorn": false },
-        { "isMorn": false },
-        { "isMorn": false },
-        { "isMorn": false },
-        { "isMorn": false },
-        { "isMorn": false },
-        { "isMorn": false },
-        { "isMorn": false },
-        { "isMorn": false }
+    @property(cc.Node)
+    content: cc.Node = null;
 
-        // 0: {pid: 21, pn: "世界", pon: 1, cid: 785, cn: "俱乐部友谊赛", cpmon: 470, crbon: 600, scn: "julebuyouyisai",…}
-        // 1: {pid: 59, pn: "印度尼西亚", pon: 2, cid: 107, cn: "印度尼西亚甲级联赛", cpmon: 235, crbon: 2570,…}
-        // 2: {pid: 199, pn: "VS PES", pon: 3, cid: 21033, cn: "VS - IM独家PES21亚洲友谊赛", cpmon: 9910, crbon: 2640,…}
-        // 3: {pid: 199, pn: "VS PES", pon: 3, cid: 19861, cn: "VS - IM独家PES21 欧洲友谊赛", cpmon: 9916, crbon: 2645,…}
-        // 4: {pid: 181, pn: "VS FIFA", pon: 4, cid: 17173, cn: "VS - IM 独家FIFA20意大利", cpmon: 9914, crbon: 2655,…}
-        // 5: {pid: 181, pn: "VS FIFA", pon: 4, cid: 17172, cn: "VS - IM 独家FIFA20西班牙", cpmon: 9915, crbon: 2660,…}
-        // 6: {pid: 181, pn: "VS FIFA", pon: 4, cid: 17175, cn: "VS - IM 独家FIFA20中国", cpmon: 9911, crbon: 2670,…}
-        // 7: {pid: 8, pn: "澳大利亚", pon: 5, cid: 4507, cn: "澳洲女足联赛", cpmon: 50, crbon: 4812, scn: "aozhounvzuliansai",…}
-        // 8: {pid: 50, pn: "印度", pon: 6, cid: 14238, cn: "印度曼尼普尔邦联赛杯", cpmon: 9999, crbon: 5030,…}
-        // 9: {pid: 25, pn: "阿尔及利亚", pon: 7, cid: 939, cn: "阿尔及利亚预备队甲级职业联赛", cpmon: 6049, crbon: 5435,…}
-        // 10: {pid: 61, pn: "以色列", pon: 8, cid: 3720, cn: "以色列足球丙级联赛", cpmon: 4655, crbon: 5440,…}
-    ];
+    @property(cc.Node)
+    sportMenu: cc.Node = null;
+
+    private yikaisiItems = [];
+
 
     onLoad() {
         this.return.on('click', this.onReturn, this);
@@ -54,13 +40,6 @@ export default class DetailsCom extends cc.Component {
 
     start() {
         AppFacade.getInstance().registerMediator(new DetailsMediator(DetailsMediator.NAME, this));
-
-        AppFacade.getInstance().sendNotification("初始化list视图", this);
-        // this.scrollView.node.on("bounce-bottom", this.onDiBu, this);
-
-        // 
-
-
     }
 
     onDiBu() {
@@ -91,16 +70,74 @@ export default class DetailsCom extends cc.Component {
         AppFacade.getInstance().sendNotification("关闭自己", this);
     }
 
-    onListRender(item: any, index: number) {
-        let data = DetailsCom.data[index];
-        (item as cc.Node).getComponent(DetailsComItemCom).updatData(data, index);
-
-        console.log(index);
+    initMenu(data) {
+        this.sportMenu.getComponent(SportTitleMenuCom).init(data);
     }
 
-    setListData(data): void {
-        this.list.numItems = 4;
+    async initItems(titleData, betInfoData, machingNum) {
+        // [进行中数据] 
+        let data0 = titleData[0]["com"];
+        if (data0 && data0.length > 0) {
+            // 添加抬头
+            let itemTitle = await UIManager.getInstance().createPrefab("tiyuGame/prefabs/DetailsItem");
+            let itemCom = itemTitle.getComponent(DetailsItemCom);
+            let data = { "cn": "进行中", "titleFlag": "已开赛抬头" };
+            data.cn = "进行中(" + machingNum + ")";
+            itemCom.updatData(data, 0);
+            this.content.addChild(itemTitle);
+            this.yikaisiItems = [];
+            // [0] 进行中
+            for (let i = 0; i < data0.length; i++) {
+                let item = await UIManager.getInstance().createPrefab("tiyuGame/prefabs/DetailsItem");
+                let itemCom = item.getComponent(DetailsItemCom);
+                item["type"] = "已开赛";
+                data0[i].titleFlag = "已开赛";
+                itemCom.updatData(data0[i], i + 1);
+                this.yikaisiItems.push(item);
+                this.content.addChild(item);
+            }
+        }
+
+        // [未开赛数据] 
+        let data1 = titleData[1]["com"];
+        if (data1 && data1.length > 0) {
+            // 添加抬头
+            let itemTitle = await UIManager.getInstance().createPrefab("tiyuGame/prefabs/DetailsItem");
+            let itemCom = itemTitle.getComponent(DetailsItemCom);
+            let data = { "cn": "未开赛", "titleFlag": "未开赛抬头" };
+            itemCom.updatData(data, 0);
+            this.content.addChild(itemTitle);
+            // [0] 进行中
+            for (let i = 0; i < 10; i++) {
+                let item = await UIManager.getInstance().createPrefab("tiyuGame/prefabs/DetailsItem");
+                let itemCom = item.getComponent(DetailsItemCom);
+                item["type"] = "未开赛";
+                data1[i].titleFlag = "未开赛";
+                itemCom.updatData(data1[i], i + 1);
+                this.content.addChild(item);
+            }
+        }
+
     }
 
-    // update (dt) {}
+    updateTitle(titleType: string, hideOrShow) {
+        let eles = this.content.children;
+        if (titleType == "已开赛抬头") {
+            let yikaisai = eles.filter(item => item["type"] == "已开赛")
+            yikaisai.forEach(element => {
+                element.getComponent(DetailsItemCom).showMorn(hideOrShow);
+            });
+        } else {
+            let weikasai = eles.filter(item => item["type"] == "未开赛")
+            weikasai.forEach(element => {
+                element.getComponent(DetailsItemCom).showMorn(hideOrShow);
+            });
+        }
+    }
+
+    updatePage(pageIndex, betIndex) {
+        this.yikaisiItems[betIndex].getComponent(DetailsItemCom).updateBetInfoPage(pageIndex);
+    }
 }
+
+

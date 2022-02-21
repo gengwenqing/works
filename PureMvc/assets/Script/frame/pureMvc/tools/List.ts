@@ -966,6 +966,7 @@ export default class List extends cc.Component {
                     this._lastDisplayData = [];
                     // cc.log('List Display Data II::', this.displayData);
                     for (let c = 0; c < this.displayItemNum; c++) {
+                        console.log("滚动进行时... _____ _createOrUpdateItem");
                         this._createOrUpdateItem(this.displayData[c]);
                     }
                     this._forceUpdate = false;
@@ -1417,6 +1418,8 @@ export default class List extends cc.Component {
         let timeInSecond: number = .7;
         t.scrollTo(t.nearestListId, timeInSecond, offset);
     }
+
+    private renderCount = 0;
     //Update..
     update() {
         if (this.frameByFrameRenderNum <= 0 || this._updateDone)
@@ -1427,6 +1430,8 @@ export default class List extends cc.Component {
             for (let n: number = this._updateCounter; n < len; n++) {
                 let data: any = this.displayData[n];
                 if (data) {
+                    this.renderCount ++;
+                    console.log("update... _____ _createOrUpdateItem:" + this.renderCount);
                     this._createOrUpdateItem(data);
                 }
             }
@@ -1504,6 +1509,7 @@ export default class List extends cc.Component {
                 listItem._registerEvent();
             }
             if (this.renderEvent) {
+                console.log("渲染item___________0")
                 cc.Component.EventHandler.emitEvents([this.renderEvent], item, data.id % this._actualNumItems);
             }
         } else if (this._forceUpdate && this.renderEvent) { //强制更新
@@ -1511,7 +1517,8 @@ export default class List extends cc.Component {
             this._resetItemSize(item);
             // cc.log('ADD::', data.id, item);
             if (this.renderEvent) {
-                cc.Component.EventHandler.emitEvents([this.renderEvent], item, data.id % this._actualNumItems);
+                console.log("渲染item___________1")
+                // cc.Component.EventHandler.emitEvents([this.renderEvent], item, data.id % this._actualNumItems,false);
             }
         }
         this._resetItemSize(item);
@@ -1537,6 +1544,7 @@ export default class List extends cc.Component {
                 listItem._registerEvent();
             }
             if (this.renderEvent) {
+                console.log("渲染item___________2")
                 cc.Component.EventHandler.emitEvents([this.renderEvent], item, listId % this._actualNumItems);
             }
         } else if (this._forceUpdate && this.renderEvent) { //强制更新
@@ -1544,6 +1552,7 @@ export default class List extends cc.Component {
             if (listItem)
                 listItem.listId = listId;
             if (this.renderEvent) {
+                console.log("渲染item___________3")
                 cc.Component.EventHandler.emitEvents([this.renderEvent], item, listId % this._actualNumItems);
             }
         }
@@ -1663,7 +1672,8 @@ export default class List extends cc.Component {
             let listId: number = args[n];
             let item: any = this.getItemByListId(listId);
             if (item)
-                cc.Component.EventHandler.emitEvents([this.renderEvent], item, listId % this._actualNumItems);
+            console.log("渲染item___________4")
+                cc.Component.EventHandler.emitEvents([this.renderEvent], item, listId % this._actualNumItems,false);
         }
     }
     /**
@@ -1775,8 +1785,10 @@ export default class List extends cc.Component {
             if (newId != null) {
                 let newData: any = t._calcItemPos(newId);
                 t.displayData.push(newData);
-                if (t._virtual)
+                if (t._virtual){
                     t._createOrUpdateItem(newData);
+                    console.log("aniDelitem _____ _createOrUpdateItem");
+                }
                 else
                     t._createOrUpdateItem2(newId);
             } else
@@ -2053,6 +2065,7 @@ export default class List extends cc.Component {
         // cc.log(pageNum);
         t.curPageNum = pageNum;
         if (t.pageChangeEvent) {
+            console.log("渲染item___________6")
             cc.Component.EventHandler.emitEvents([t.pageChangeEvent], pageNum);
         }
         t.scrollTo(pageNum, timeInSecond);
@@ -2070,6 +2083,7 @@ export default class List extends cc.Component {
         let temp: any = cc.instantiate(t._itemTmp);
         t.content.addChild(temp);
         for (let n: number = 0; n < numItems; n++) {
+            console.log("渲染item___________5")
             cc.Component.EventHandler.emitEvents([t.renderEvent], temp, n);
             if (temp.height != t._itemSize.height || temp.width != t._itemSize.width) {
                 t._customSize[n] = t._sizeType ? temp.height : temp.width;
