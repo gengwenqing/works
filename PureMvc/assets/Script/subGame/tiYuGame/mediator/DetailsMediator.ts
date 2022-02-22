@@ -82,7 +82,7 @@ export class DetailsMediator extends Mediator {
             }, (data) => {
                 vo.SportMenuData = data["secl"];
                 this.facade().sendNotification("初始体育菜单");
-            }, "YTY4ZDJlNmM0YjZkZGY1ZjllNDVjMzRiYTk2NTQzODcmJmZoX25hbWVnd3FnMCYmJiYxNjQ1NDE5MDQ0")
+            }, "YTY4ZDJlNmM0YjZkZGY1ZjllNDVjMzRiYTk2NTQzODcmJmZoX25hbWVnd3FnMCYmJiYxNjQ1NDM1MzQx")
 
         // 发消息
         Http.getIns().Post("https://loginim.get1origins.com/mobilesitev2/api/Event/GetCompetitionList",
@@ -106,23 +106,24 @@ export class DetailsMediator extends Mediator {
                         "SportId": 1,
                         "Market": 3,
                         "BetTypeIds": [
+                            3,
                             1,
-                            2,
-                            3
+                            2
                         ],
                         "PeriodIds": [
                             1,
                             2
+                        ],
+                        "MarketLineLevels": [
+                            1
                         ],
                         "IsCombo": false,
                         "OddsType": 2,
                         "DateFrom": null,
                         "DateTo": null,
                         "CompetitionIds": proxy.getCompetitionIds,
-                        "Season": 0,
-                        "MatchDay": 0,
                         "SortType": 2,
-                        "ProgrammeIds": []
+                        "ProgrammeIds": null
                     }, (data) => {
                         console.log("比赛对阵详情:", data);
 
@@ -132,7 +133,7 @@ export class DetailsMediator extends Mediator {
                         this.facade().sendNotification("初始化list视图");
 
 
-                    }, "YTY4ZDJlNmM0YjZkZGY1ZjllNDVjMzRiYTk2NTQzODcmJmZoX25hbWVnd3FnMCYmJiYxNjQ1NDE5MDQ0")
+                    }, "YTY4ZDJlNmM0YjZkZGY1ZjllNDVjMzRiYTk2NTQzODcmJmZoX25hbWVnd3FnMCYmJiYxNjQ1NDM1MzQx")
             })
 
 

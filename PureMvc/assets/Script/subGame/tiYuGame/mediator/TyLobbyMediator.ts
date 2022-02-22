@@ -5,6 +5,7 @@ import INotification from "../../../frame/pureMvc/interfaces/INotification";
 import Mediator from "../../../frame/pureMvc/patterns/mediator/Mediator";
 import UIManager from "../../../game/utils/UIManager";
 import TyLobbyCom from "../component/TyLobbyCom";
+import TiYuGameMsg from "../TiYuGameMsg";
 
 export default class TyLobbyMediator extends Mediator {
 
@@ -31,10 +32,18 @@ export default class TyLobbyMediator extends Mediator {
                 }
                 break;
             case "添加右列表":
-                for (let i = 0; i < 3; i++) {
+                for (let i = 0; i < 100; i++) {
                     let right = await UIManager.getInstance().createPrefab("tiyuGame/prefabs/ItemInfo");
                     (body as cc.Node).addChild(right);
                     // UIManager.UIPopLayer.addChild(right); 
+
+
+
+                    let time = Date.now();
+                    console.log("结束时间", time);
+                    TiYuGameMsg.timeEnd = time;
+
+                    console.log("时间差:", TiYuGameMsg.timeBegin - TiYuGameMsg.timeEnd);
                 }
 
                 break;
@@ -42,13 +51,13 @@ export default class TyLobbyMediator extends Mediator {
 
     }
 
-        /**注册的时候被调用 */
-        public onRegister() {
-            console.log(TyLobbyMediator.NAME + "中介类被注册");
-        }
-    
-        /**删除的时候被调用 */
-        public onRemove() {
-            // console.log(LobbyMediator.NAME + "中介类被删除");
-        }
+    /**注册的时候被调用 */
+    public onRegister() {
+        console.log(TyLobbyMediator.NAME + "中介类被注册");
+    }
+
+    /**删除的时候被调用 */
+    public onRemove() {
+        // console.log(LobbyMediator.NAME + "中介类被删除");
+    }
 }

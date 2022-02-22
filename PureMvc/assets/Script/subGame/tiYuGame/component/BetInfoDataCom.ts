@@ -33,6 +33,21 @@ export default class BetInfoDataCom extends cc.Component {
     @property(cc.Label)
     bit_2_1: cc.Label = null;
 
+    // 让球浮动
+    @property(cc.Label)
+    bit_1_0hdp: cc.Label = null;
+ 
+    @property(cc.Label)
+    bit_1_1hdp: cc.Label = null;
+
+    // 大小浮动
+
+    @property(cc.Label)
+    bit_2_0hdp: cc.Label = null; // 大
+
+    @property(cc.Label)
+    bit_2_1hdp: cc.Label = null; // 小
+
     start() {
 
     }
@@ -43,11 +58,15 @@ export default class BetInfoDataCom extends cc.Component {
         for (let i = 0; i < data.length; i++) {
             let ele = data[i];
             for (const key in ele) {
-                console.log("数据:" + ele[key]);
-                console.log("属性名" + key, self[key]);
+                // console.log("数据:" + ele[key]);
+                // console.log("属性名" + key, self[key]);
                 self[key].string = ele[key];
             }
         }
     }
     // update (dt) {}
+
+
+
+   
 }

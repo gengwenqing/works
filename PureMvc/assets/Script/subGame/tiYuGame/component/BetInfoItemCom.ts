@@ -70,6 +70,10 @@ export default class BetInfoItemCom extends cc.Component {
                 for (let j = 0; j < ele.ws.length; j++) {
                     let wsEle = ele.ws[j];
                     obj["bit_" + ele.bti + "_" + j] = wsEle.o;
+                    if (ele.bti != 3) {
+                        obj["bit_" + ele.bti + "_" + j + "hdp"] = this.formatHdp(wsEle.hdp, ele.bti, j);
+                    }
+
                 }
                 formatData.push(obj);
             }
@@ -96,4 +100,52 @@ export default class BetInfoItemCom extends cc.Component {
         this.pageViewTitle.getComponent(cc.PageView).scrollToPage(index, 0.3);
         this.pageViewInfo.getComponent(cc.PageView).scrollToPage(index, 0.3);
     }
+
+
+    formatHdp(hdp: number, bit, index) {
+        let sNum = this.fract(hdp);
+        let str = "";
+        if (bit == 2) { // 大小
+            let sOrB = index > 0 ? "小" : "大";
+            if (sNum > 0) {
+                // 有可能要有区间
+                if (sNum == 0.5) {
+                    str = sOrB + hdp;
+                } else {
+                    if (sNum > 0.00 && sNum < 0.50) { // .25
+                        str = sOrB + Math.trunc(hdp) + "/" + (Math.trunc(hdp) + 0.5);
+                    } else if (sNum > 0.50 && sNum < 1) { // .75
+                        str = sOrB + (Math.trunc(hdp) + 0.5) + "/" + (Math.trunc(hdp) + 1);
+                    } else {
+                        str = hdp.toString();
+                    }
+                }
+            } else {
+                str = sOrB + hdp;
+            }
+
+        } else if (bit == 1) { //让球
+            let sHdp = index == 0 ? hdp : -hdp;
+            str += sHdp > 0 ? "+" : "-";
+            sNum = this.fract(Math.abs(sHdp)); // 小数部分的值;
+            if (sNum == 0.5) {
+                str += sHdp.toString();
+            } else {
+                let absHdp = Math.abs(Math.trunc(hdp));
+                if (sNum > 0.00 && sNum < 0.50) {
+                    str += absHdp + "/" + (absHdp + 0.5);
+                } else if (sNum > 0.50 && sNum < 1) {
+                    str += (absHdp + 0.5) + "/" + (absHdp + 1);
+                } else {
+                    str = hdp.toString();
+                }
+            }
+        }
+        return str;
+    }
+
+    fract(num) {
+        return num - Math.trunc(num);
+    }
+
 }
