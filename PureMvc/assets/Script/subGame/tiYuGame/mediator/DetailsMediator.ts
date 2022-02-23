@@ -10,6 +10,7 @@ import Http from "../../../net/Http";
 import DetailsCom from "../component/DetailsCom";
 import TiYuGameProxy from "../model/TiYuGameProxy";
 import { TiYuGameVo } from "../model/vo/TiYuGameVo";
+import TiYuGameMsg from "../TiYuGameMsg";
 
 export class DetailsMediator extends Mediator {
 
@@ -101,6 +102,7 @@ export class DetailsMediator extends Mediator {
 
                 // this.list.numItems = 10;
 
+                // let competitionIds = proxy.getCompetitionIds()
                 Http.getIns().Post("https://loginim.get1origins.com/api/Event/GetSportEvents",
                     {
                         "SportId": 1,
@@ -121,7 +123,7 @@ export class DetailsMediator extends Mediator {
                         "OddsType": 2,
                         "DateFrom": null,
                         "DateTo": null,
-                        "CompetitionIds": proxy.getCompetitionIds,
+                        "CompetitionIds": proxy.getCompetitionIds(0),
                         "SortType": 2,
                         "ProgrammeIds": null
                     }, (data) => {
@@ -130,13 +132,42 @@ export class DetailsMediator extends Mediator {
                         vo.BetInfoData = data.sel;
                         // this.viewComponent.list.numItems = DetailsCom.data.length; // 触发render
                         // 渲染item
-                        this.facade().sendNotification("初始化list视图");
+                        // this.facade().sendNotification("初始化list视图");
 
-
-                    }, "YTY4ZDJlNmM0YjZkZGY1ZjllNDVjMzRiYTk2NTQzODcmJmZoX25hbWVnd3FnMCYmJiYxNjQ1NDM1MzQx")
+                        Http.getIns().Post("https://loginim.get1origins.com/api/Event/GetSportEvents",
+                            {
+                                "SportId": 1,
+                                "Market": 2,
+                                "BetTypeIds": [
+                                    3,
+                                    1,
+                                    2
+                                ],
+                                "PeriodIds": [
+                                    1,
+                                    2
+                                ],
+                                "MarketLineLevels": [
+                                    1
+                                ],
+                                "IsCombo": false,
+                                "OddsType": 2,
+                                "DateFrom": null,
+                                "DateTo": null,
+                                "CompetitionIds": proxy.getCompetitionIdsAndPage(1, 0),
+                                "SortType": 2,
+                                "ProgrammeIds": null
+                            }, (data) => {
+                                vo.BetInfoData1 = data.sel;
+                                // this.viewComponent.list.numItems = DetailsCom.data.length; // 触发render
+                                // 渲染item
+                                let time = Date.now();
+                                console.log("开始时间", time);
+                                TiYuGameMsg.timeBegin = time;
+                                this.facade().sendNotification("初始化list视图");
+                            }, "1")
+                    }, "1")
             })
-
-
 
 
     }
@@ -144,8 +175,8 @@ export class DetailsMediator extends Mediator {
     initListView() {
         let proxy: TiYuGameProxy = this.facade().retrieveProxy(TiYuGameProxy.NAME) as TiYuGameProxy;
         let vo: TiYuGameVo = proxy.getData();
-        let matchingNum = proxy.getMatchingNums();
-        this.viewComponent.initItems(vo.TitleData, vo.BetInfoData, matchingNum);
+        let matchingNum = proxy.getMatchingNums(0);
+        this.viewComponent.initItems(vo.TitleData, matchingNum);
     }
 
     initMenu() {
@@ -154,5 +185,6 @@ export class DetailsMediator extends Mediator {
         let menuData = proxy.getMenuData();
         this.viewComponent.initMenu(menuData);
     }
+
 
 }

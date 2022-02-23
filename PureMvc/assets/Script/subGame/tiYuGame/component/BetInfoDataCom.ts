@@ -53,7 +53,7 @@ export default class BetInfoDataCom extends cc.Component {
     }
 
     setWsInfo(data) {
-        console.log(this);
+        // console.log(this);
         let self = this;
         for (let i = 0; i < data.length; i++) {
             let ele = data[i];

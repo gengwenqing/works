@@ -36,14 +36,7 @@ export default class TyLobbyMediator extends Mediator {
                     let right = await UIManager.getInstance().createPrefab("tiyuGame/prefabs/ItemInfo");
                     (body as cc.Node).addChild(right);
                     // UIManager.UIPopLayer.addChild(right); 
-
-
-
-                    let time = Date.now();
-                    console.log("结束时间", time);
-                    TiYuGameMsg.timeEnd = time;
-
-                    console.log("时间差:", TiYuGameMsg.timeBegin - TiYuGameMsg.timeEnd);
+               
                 }
 
                 break;

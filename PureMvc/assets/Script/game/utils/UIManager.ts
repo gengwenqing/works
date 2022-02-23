@@ -95,8 +95,6 @@ export default class UIManager {
                     } else {
                         let node: any = cc.instantiate(asserts);
                         if (node) {
-                            // for (let i:)
-                            // this.isPool(url).put(node);
                             resolve(node);
                         } else {
                             console.log("创建prefab错误空节点");

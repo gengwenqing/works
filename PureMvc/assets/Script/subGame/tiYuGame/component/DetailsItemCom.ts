@@ -6,6 +6,7 @@ import AppFacade from "../../../game/AppFacade";
 import UIManager from "../../../game/utils/UIManager";
 import TiYuGameProxy from "../model/TiYuGameProxy";
 import { TiYuGameVo } from "../model/vo/TiYuGameVo";
+import TiYuGameMsg from "../TiYuGameMsg";
 import BetInfoItemCom from "./BetInfoItemCom";
 
 const { ccclass, property } = cc._decorator;
@@ -59,19 +60,31 @@ export default class DetailsItemCom extends cc.Component {
         }
     }
 
-    public updatData(data, index) {
+    public updatData(data, index, type = 0, isTitle = false) {
         //{pid: 21, pn: "世界", pon: 1, cid: 785, cn: "俱乐部友谊赛", cpmon: 470, crbon: 600, scn: "julebuyouyisai",…}
+        //type 开赛 未开赛
         this.data = data;
         this.title.string = data.cn;
         this._index = index;
         this.titleFlag = data.titleFlag;
-        // this.isMorn = isMorn;
-        // this._updateMorn();
 
+        if (this.titleFlag == "已开赛抬头" || this.titleFlag == "未开赛抬头") {
+            this.star.active = true;
+            this.isMorn = true;
+            if (this.titleFlag == "已开赛抬头") {
+                this.star.getComponent(cc.Sprite).spriteFrame = this.macths[0];
 
-        let proxy: TiYuGameProxy = AppFacade.getInstance().retrieveProxy(TiYuGameProxy.NAME) as TiYuGameProxy;
-        let bData = proxy.getBetInfoByCid(data.cid);
-        this.initBetInfo(bData,index);
+            } else if (this.titleFlag == "未开赛抬头") {
+                this.line.color = new cc.Color(255, 181, 174);
+                this.star.getComponent(cc.Sprite).spriteFrame = this.macths[1];
+            }
+        }
+
+        if (!isTitle) {
+            let proxy: TiYuGameProxy = AppFacade.getInstance().retrieveProxy(TiYuGameProxy.NAME) as TiYuGameProxy;
+            let bData = proxy.getBetInfoByCid(data.cid, type);
+            this.initBetInfo(bData, index);
+        }
     }
 
     update() {
@@ -86,7 +99,7 @@ export default class DetailsItemCom extends cc.Component {
         this.betInfoLayer.active = this.isMorn;
         this.node.height = this.isMorn ? this.betInfoLayer.childrenCount * 260 + 55 : 55;
         this.betInfoLayer.getComponent(cc.Layout).updateLayout();
-        console.log("item变化后的高度:" + this.node.height);
+        // console.log("item变化后的高度:" + this.node.height);
     }
 
     onDestroy() {
@@ -100,38 +113,35 @@ export default class DetailsItemCom extends cc.Component {
         this._updateMorn();
     }
 
-    //初始化投注信息
-    async initBetInfo(data,index) {
+    /**
+     * 初始化投注信息
+     * @param data 
+     * @param index 全场/半场信息
+     */
+    async initBetInfo(data, index) {
+
         if (data.length > 0 && data) {
             for (let i = 0; i < data.length; i++) {
                 let betInfo = await UIManager.getInstance().createPrefab("tiyuGame/prefabs/BetInfoItem");
                 let com = betInfo.getComponent(BetInfoItemCom);
-                com.setInfo(data[i],index);
+                com.setInfo(data[i], index);
                 com.setTitleVisible(i == 0);
                 this.betInfoLayer.addChild(betInfo);
             }
         } else {
             this.isMorn = false;
         }
-        if (this.titleFlag == "已开赛抬头" || this.titleFlag == "未开赛抬头") {
-            this.star.active = true;
-
-            this.isMorn = true;
-            if (this.titleFlag == "已开赛抬头") {
-                this.star.getComponent(cc.Sprite).spriteFrame = this.macths[0];
-
-            } else if (this.titleFlag == "未开赛抬头") {
-                this.line.color = new cc.Color(255, 181, 174);
-                this.star.getComponent(cc.Sprite).spriteFrame = this.macths[1];
-            }
-        } else {
-            this.star.active = false;
-            let widget = this.title.getComponent(cc.Widget);
-            widget.left = 10;
-            widget.updateAlignment();
-        }
+        this.star.active = false;
+        let widget = this.title.getComponent(cc.Widget);
+        widget.left = 10;
+        widget.updateAlignment();
         this._updateMorn();
-       
+        let time = Date.now();
+
+        // console.log("结束时间", time);
+        TiYuGameMsg.timeEnd = time;
+
+        console.log("时间差:", TiYuGameMsg.timeBegin - TiYuGameMsg.timeEnd);
     }
 
 

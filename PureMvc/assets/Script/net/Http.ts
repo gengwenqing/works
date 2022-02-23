@@ -90,7 +90,7 @@ export default class Http {
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader('Authorization', '');
         if (token) {
-            xhr.setRequestHeader('x-token', "YTY4ZDJlNmM0YjZkZGY1ZjllNDVjMzRiYTk2NTQzODcmJmZoX25hbWVnd3FnMCYmJiYxNjQ1NDM2MTU4");
+            xhr.setRequestHeader('x-token', "YTY4ZDJlNmM0YjZkZGY1ZjllNDVjMzRiYTk2NTQzODcmJmZoX25hbWVnd3FnMCYmJiYxNjQ1NTk0MjYz");
             xhr.setRequestHeader('x-x-vid', "xemvVuMNUqUXF4W2QhDe");
             xhr.setRequestHeader('x-viewtype', "1");
         }

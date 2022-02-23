@@ -22,13 +22,12 @@ export default class TiYuGameMsg extends cc.Component {
     public static timeBegin = 0;
     public static timeEnd = 0;
     start() {
-        
-        let time = Date.now();
-        console.log("开始时间",time);
-        TiYuGameMsg.timeBegin = time;
+
+     
         AppFacade.getInstance().sendNotification("添加大厅", this.node);
 
         UIManager.UIPopLayer = this.popLayer;
+
 
 
         Http.getIns().Post("https://loginim.get1origins.com/mobilesitev2/api/home/getSiteProfile",
@@ -36,6 +35,11 @@ export default class TiYuGameMsg extends cc.Component {
                 console.log(data);
             })
 
+        cc.resources.preload("tiyuGame/prefabs/DetailsItem", cc.Prefab);
+        cc.resources.preload("tiyuGame/prefabs/BetInfoItem", cc.Prefab);
+        // cc.resources.preload(url, cc.Prefab);
+        // cc.resources.preload(url, cc.Prefab);
+        // cc.resources.preload(url, cc.Prefab);
 
         // console.log(this.formatHdp(-0.75, 1, 0));
         // console.log(this.formatHdp(-0.75, 1, 1));

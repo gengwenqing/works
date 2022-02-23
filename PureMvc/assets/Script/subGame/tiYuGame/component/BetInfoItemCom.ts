@@ -51,12 +51,18 @@ export default class BetInfoItemCom extends cc.Component {
         this.data = data;
         this.vs0.string = data.htn;
         this.vs1.string = data.atn;
+
+        console.log("data", data);
         // 对阵信数据
         let mls = data.mls;
         this.secondPageWs.active = (mls.length > 3);
         this.secondTitleItem.active = (mls.length > 3);
+        // console.log("msl的长度", mls);
+        // console.log("设置全场数据", this.formatData(mls, 1));
         this.fristPageWs.getComponent(BetInfoDataCom).setWsInfo(this.formatData(mls, 1));
+
         if (mls.length > 3) {
+            // console.log("设置半场数据", this.formatData(mls, 2));
             this.secondPageWs.getComponent(BetInfoDataCom).setWsInfo(this.formatData(mls, 2));
         }
     }

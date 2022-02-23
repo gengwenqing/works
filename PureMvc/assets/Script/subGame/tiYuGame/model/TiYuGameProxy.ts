@@ -19,7 +19,7 @@ export default class TiYuGameProxy extends Proxy implements IProxy {
         console.log("TiYuGameProxy");
     }
 
-    public getBetInfoByCid(cid): any[] {
+    public getBetInfoByCid(cid, type = 0): any[] {
         // {    "mls": [
         //         {
         //             "bti": 1,
@@ -503,22 +503,41 @@ export default class TiYuGameProxy extends Proxy implements IProxy {
         // }
 
         let datas = [];
-        let betInfoData = (this.getData() as TiYuGameVo).BetInfoData;
+        if(type ==0){
+            let betInfoData = (this.getData() as TiYuGameVo).BetInfoData;
 
-        betInfoData.forEach(element => {
-            if (element.cid == cid) {
-                datas.push(element);
-            }
-        });
-
+            betInfoData.forEach(element => {
+                if (element.cid == cid) {
+                    datas.push(element);
+                }
+            });
+        }else{
+            let betInfoData = (this.getData() as TiYuGameVo).BetInfoData1;
+            betInfoData.forEach(element => {
+                if (element.cid == cid) {
+                    datas.push(element);
+                }
+            });
+        }
         return datas;
     }
 
-    public getCompetitionIds(): any[] {
+    public getCompetitionIds(index: number): any[] {
         let coms = [];
         let titleData = (this.getData() as TiYuGameVo).TitleData;
-        let data0: any[] = titleData[0]["com"];
+        let data0: any[] = titleData[index]["com"];
         data0.forEach(element => {
+            coms.push(element.cid);
+        });
+        return coms;
+    }
+
+    public getCompetitionIdsAndPage(index: number, pageIndex): any[] {
+        let coms = [];
+        let titleData = (this.getData() as TiYuGameVo).TitleData;
+        let data0: any[] = titleData[index]["com"];
+        let els = data0.slice(0 * pageIndex, 10 * (pageIndex + 1));
+        els.forEach(element => {
             coms.push(element.cid);
         });
         return coms;
@@ -528,9 +547,9 @@ export default class TiYuGameProxy extends Proxy implements IProxy {
      * 获取比赛中的数量
      * @returns 
      */
-    public getMatchingNums() {
+    public getMatchingNums(index) {
         let num = 0;
-        let coms = this.getCompetitionIds();
+        let coms = this.getCompetitionIds(0);
         for (let i = 0; i < coms.length; i++) {
             let datas = this.getBetInfoByCid(coms[i]);
             num += datas.length;
